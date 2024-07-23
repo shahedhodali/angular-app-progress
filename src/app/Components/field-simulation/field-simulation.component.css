@@ -1,0 +1,59 @@
+.position-relative {
+  position: relative;
+}
+.col-form-label{
+  color: #7c7c7b;
+}
+.search-icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  z-index: 1;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  pointer-events: auto;
+}
+.search-icon i {
+  font-size: 1.2rem;
+  color: #6c757d;
+}
+.refresh-icon {
+  position: absolute;
+  right: 35px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+}
+/* Adjust the size and color of the new icon as needed */
+.refresh-icon i {
+  font-size: 1.2rem;
+  color: #6c757d;
+}
+  .error-message {
+    color: red;
+    font-style: italic;
+}
+.highlight-border {
+  border: 2px solid red;
+  border-radius: 5px;
+}
+.form-control-length{
+  display: flex;
+  justify-content: flex-end;
+  color: #7c7c7b;
+}
+.modal-title{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  color: #fff;
+  background-color: #414CAF;;
+}
+.message {
+  color: #414CAF;;
+}

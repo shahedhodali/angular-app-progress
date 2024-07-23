@@ -1,0 +1,295 @@
+<div class="conatiner-fluid">
+    <form #progressForm="ngForm">
+            <div class="row m-3">
+                <fieldset class="border rounded">
+                    <legend class="w-auto text-primary" style="float: none; padding: inherit;">Extra information</legend>
+                    <div class="row px-3 pt-2">
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label for="troReference" class="col-12 col-form-label">TRO Reference</label>
+                                <div class="col-12">
+                                    <input type="text" id="troReference" class="form-control text-uppercase"
+                                     name="troReference" [(ngModel)]="tempAccount.troReference"
+                                     autocomplete="off" disabled/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label for="currency" class="col-12 col-form-label">Currency *</label>
+                                <div class="col-12 position-relative" >
+                                    <select class="form-select" id="currency" aria-label="currency"
+                                     required name="currency"  [(ngModel)]="tempAccount.currency">
+                                                <option value="KWD" selected>KWD - Kuwaiti Dinar</option>
+                                                <option value="USD">USD - United States Dollar</option>
+                                                <option value="JOR">JOR - Jordanian Dinar</option>
+                                                <option value="TND">TND - Tunisian Dinar</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label for="debitBic" class="col-12 col-form-label">Debit bic</label>
+                                <div class="col-12 position-relative">
+                                    <input type="text" id="debitBic" class="form-control text-uppercase"
+                                     required name="debitBic" [(ngModel)]="tempAccount.debitBIC" (change)="onFieldChange( 'debitBIC' ,tempAccount.debitBIC )"
+                                     autocomplete="off" maxlength="11"/>
+                                     <span  class="refresh-icon">
+                                      <i class="bi bi-arrow-counterclockwise"></i>
+                                    </span>
+                                </div>
+                                <div class="form-control-length">
+                                    {{tempAccount.debitBIC.length}}/11
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row px-3">
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label for="debitAccount" class="col-12 col-form-label">Debit account *</label>
+                                <div class="col-12 position-relative">
+                                  <input
+                                    type="text"
+                                    id="debitAccount"
+                                    class="form-control text-uppercase"
+                                    required
+                                    name="debitAccount"
+                                    [(ngModel)]="tempAccount.debitAccount"
+                                    autocomplete="off"
+                                    [ngClass]="{'highlight-border' : !tempAccount.debitAccount}"
+                                    (change)="onFieldChange( 'debitAccount' ,tempAccount.debitAccount )"
+                                  />
+                                  <span  class="refresh-icon" (click)="resetFields()">
+                                    <i class="bi bi-arrow-counterclockwise"></i>
+                                  </span>
+                                  <span *ngIf="showSearch" class="search-icon" (click)="opensearchPopup(multiData)">
+                                    <i class="bi bi-search"></i>
+                                  </span>
+                                </div>
+                                <div *ngIf="tempAccount.debitAccount.length == 0" class="error-message">
+                                    * This field is required.
+                                </div>
+                              </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label for="mnemonicCode" class="col-12 col-form-label">Mnemonic code</label>
+                                <div class="col-12">
+                                    <input type="text" id="mnemonicCode" class="form-control text-uppercase"
+                                     required name="mnemonicCode" [(ngModel)]="tempAccount.mnemonicCode"
+                                     autocomplete="off" [disabled]="disabledFields" maxlength="16"/>
+                                </div>
+                                <div class="form-control-length">
+                                    {{tempAccount.mnemonicCode.length}}/16
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label for="profitCenterCode" class="col-12 col-form-label">Profit Center Code</label>
+                                <div class="col-12">
+                                    <input type="text" id="profitCenterCode" class="form-control text-uppercase"
+                                     required name="profitCenterCode" [(ngModel)]="tempAccount.profitCenterCode"
+                                     autocomplete="off" [disabled]="disabledFields" (change)="onFieldChange( 'profitCenterCode' ,tempAccount.profitCenterCode )"
+                                     maxlength="16"/>
+                                </div>
+                                <div class="form-control-length">
+                                    {{tempAccount.profitCenterCode.length}}/16
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row px-3 pb-4">
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label for="glCurrency" class="col-12 col-form-label">Gl Currency</label>
+                                <div class="col-12">
+                                    <input type="text" id="glCurrency" class="form-control text-uppercase"
+                                     required name="glCurrency" [(ngModel)]="tempAccount.glCurrency"
+                                     autocomplete="off" [disabled]="disabledFields"/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label for="debitCurrency" class="col-12 col-form-label">Debit Currency *</label>
+                                <div class="col-12">
+                                    <input type="text" id="debitCurrency" class="form-control text-uppercase"
+                                     required name="debitCurrency" [(ngModel)]="tempAccount.debitCurrency"
+                                     autocomplete="off" disabled/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label for="debitorName" class="col-12 col-form-label">Debtor name</label>
+                                <div class="col-12">
+                                    <input type="text" id="debitorName" class="form-control text-uppercase"
+                                     required name="debitorName" [(ngModel)]="tempAccount.debitorName"
+                                     autocomplete="off" disabled/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row px-3 pb-4">
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label for="settlementAmount" class="col-12 col-form-label">Transfer/Settlement amount *</label>
+                                <div class="col-12 position-relative">
+                                    <input type="text" id="settlementAmount" class="form-control text-uppercase"
+                                     required name="settlementAmount" [(ngModel)]="tempAccount.settlementAmount"
+                                     autocomplete="off" disabled/>
+                                     <span  class="refresh-icon">
+                                      <i class="bi bi-arrow-counterclockwise"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label for="debitAmount" class="col-12 col-form-label">Debit Amount *</label>
+                                <div class="col-12 position-relative">
+                                    <input type="text" id="debitAmount" class="form-control text-uppercase"
+                                     required name="debitAmount" [(ngModel)]="tempAccount.debitAmount"
+                                     autocomplete="off" disabled/>
+                                     <span  class="refresh-icon">
+                                      <i class="bi bi-arrow-counterclockwise"></i>
+                                    </span>
+                                </div>
+                                <div class="form-control-length">
+                                    0/15
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label for="chargesCurrency" class="col-12 col-form-label">Charges Currency</label>
+                                <div class="col-12">
+                                    <input type="text" id="chargesCurrency" class="form-control text-uppercase"
+                                     required name="chargesCurrency" [(ngModel)]="tempAccount.chargesCurrency"
+                                     autocomplete="off" disabled/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row px-3 pb-4">
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label for="totalChargeAmount" class="col-12 col-form-label">Total Charge Amount in Transfer Currency</label>
+                                <div class="col-12">
+                                    <input type="text" id="totalChargeAmount" class="form-control text-uppercase"
+                                     required name="totalChargeAmount" [(ngModel)]="tempAccount.totalChargeAmount"
+                                     autocomplete="off" disabled/>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label for="feeAccount" class="col-12 col-form-label">Fee Account</label>
+                                <div class="col-12 position-relative">
+                                    <input type="text" id="feeAccount" class="form-control text-uppercase"
+                                     required name="feeAccount" [(ngModel)]="tempAccount.feeAccount"
+                                     autocomplete="off"/>
+                                     <span  class="refresh-icon">
+                                      <i class="bi bi-arrow-counterclockwise"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label for="feeAccountCurrency" class="col-12 col-form-label">Fee Account Currency</label>
+                                <div class="col-12">
+                                    <input type="text" id="feeAccountCurrency" class="form-control text-uppercase"
+                                     required name="feeAccountCurrency" [(ngModel)]="tempAccount.feeAccountCurrency"
+                                     autocomplete="off" disabled/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row px-3 pb-4">
+                        <div class="col-4">
+                            <div class="form-group row">
+                                <label for="feeAccountName" class="col-12 col-form-label">Fee Account Name</label>
+                                <div class="col-12">
+                                    <input type="text" id="feeAccountName" class="form-control text-uppercase"
+                                     required name="feeAccountName" [(ngModel)]="tempAccount.feeAccountName"
+                                     autocomplete="off" disabled/>
+                                </div>
+                            </div>
+                        </div>
+                        <!--<div class="col-4">
+                          <div class="form-group row">
+                            <label for="fXDealerId" class="col-12 col-form-label">FX dealer id</label>
+                            <div class="col-12">
+                                <input type="text" id="fXDealerId" class="form-control text-uppercase"
+                                    name="fXDealerId" [(ngModel)]="tempAccount.fXDealerId" (change)="onFieldChange( 'fXDealerId' ,tempAccount.fXDealerId )"
+                                    autocomplete="off" maxlength="7"/>
+                            </div>
+                            <div class="form-control-length">
+                              {{tempAccount.fXDealerId.length}}/7
+                            </div>
+                        </div>
+                        </div>
+                        <div class="col-4">
+                          <div class="form-group row">
+                            <label for="fxRate" class="col-12 col-form-label">FX rate</label>
+                            <div class="col-12">
+                                <input type="text" id="fxRate" class="form-control text-uppercase"
+                                  name="fxRate" [(ngModel)]="tempAccount.fxRate"
+                                  autocomplete="off" />
+                            </div>
+                        </div>
+                        </div>-->
+                    </div>
+                </fieldset>
+            </div>
+            <ng-template #multiData let-modal>
+                <div class="modal-header modal-title">
+                    <h4 class="modal-title" id="modal-basic-title">Accounts</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="message p-2">
+                        You can double click on any of the below Accounts to select
+                    </div>
+                    <div class="table-responsive p-2">
+                        <table class="table table-bordered table-striped table-sm ">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Debit BIC</th>
+                                    <th scope="col">Account Number</th>
+                                    <th scope="col">Coverage Value</th>
+                                    <th scope="col">Currency</th>
+                                    <th scope="col">Mnemonic Code</th>
+                                    <th scope="col">Profit Center Code</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let res of searchOptions ; let i = index"
+                                (dblclick)="onRowDoubleClick(res, i , modal)">
+                                    <th scope="col">{{ res.debitBIC }}</th>
+                                    <th scope="col">{{ res.debitAccount }}</th>
+                                    <th scope="col">{{ res.glCurrency }}</th>
+                                    <th scope="col">{{ res.currency }}</th>
+                                    <th scope="col">{{ res.mnemonicCode }}</th>
+                                    <th scope="col">{{ res.profitCenterCode }}</th>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" (click)="modal.close('cancel click')">
+                        <span>
+                        <i class="bi bi-arrow-counterclockwise"></i>
+                        </span>
+                        Back
+                    </button>
+                </div>
+            </ng-template>
+    </form>
+</div>
+

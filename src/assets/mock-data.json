@@ -1,0 +1,5 @@
+[
+  { "key": "1234", "debitAccount": "5678", "mnemonicCode": "ABC", "profitCenterCode": "XYZ", "glCurrency": "USD" },
+  { "key": "4321", "debitAccount": "8765", "mnemonicCode": "DEF", "profitCenterCode": "UVW", "glCurrency": "EUR" }
+  // Add more mock entries as needed
+]

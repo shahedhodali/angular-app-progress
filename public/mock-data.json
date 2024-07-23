@@ -1,0 +1,7 @@
+[
+ { "debitBIC": "NBOKKWK0XXX", "debitAccount": "222", "mnemonicCode": "IMTTT", "profitCenterCode": "API0", "glCurrency": "USD - US Dollar" , "debitorName": "NATIONAL BANK OF KUWAIT" , "currency": "USD" },
+ { "debitBIC": "NBOKKWK0XXX", "debitAccount": "111", "mnemonicCode": "IMTTT", "profitCenterCode": "API0", "glCurrency": "USD - US Dollar" , "debitorName": "NATIONAL BANK OF KUWAIT" , "currency": "KWD" },
+ { "debitBIC": "NBOKKWK0XXX", "debitAccount": "2222222", "mnemonicCode": "", "profitCenterCode": "BBB", "glCurrency": "USD - US Dollar" , "debitorName": "NATIONAL BANK OF KUWAIT" , "currency": "KWD" }
+]
+
+
